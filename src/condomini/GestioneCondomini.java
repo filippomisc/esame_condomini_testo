@@ -2,19 +2,75 @@ package condomini;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import javax.swing.text.StyleConstants.CharacterConstants;
 
 public class GestioneCondomini {
+	
+	Map<String, Condominio> condomini;
+
+	public GestioneCondomini() {
+		this.condomini=new HashMap<>();
+	}
 
 	public Condominio aggiungiCondominio(String indirizzo, int numeroCivico, double saldo){
-		return null;
+		
+		Condominio result = null;
+		
+		String numeroCivicoStr = Integer.toString(numeroCivico);
+		
+		String a = "";
+		String iString =indirizzo.toUpperCase();
+		
+		if(iString.contains("VIA")) {
+			a = iString.substring(3);
+//			indirizzo.replace("VIA", "").replace(" ", "");
+			
+		}else if(iString.contains("PIAZZA")) {
+			a = iString.substring(6);
+//			indirizzo.replace("PIAZZA", "").replace(" ", "");
+			
+		}else if(iString.contains("CORSO")) {
+			a = iString.substring(5);
+//			indirizzo.replace("CORSO", "").replace(" ", "");
+		}
+		        
+		String semiID = a.replace(" ", "");
+		
+		String codice = semiID + numeroCivicoStr;
+		
+		
+		
+			
+//		if(this.condomini.containsKey(codice))
+		if(cercaCondominio(codice)!=null)
+			result = this.condomini.get(codice);
+		else {
+			result = new Condominio(codice, indirizzo, numeroCivico, saldo);
+			
+		
+		condomini.put(codice, result);
+		}
+		
+		return result;
 	}
 	
 	public Condominio cercaCondominio(String codiceCondominio){
-		return null;
+		if(this.condomini.containsKey(codiceCondominio))
+			return this.condomini.get(codiceCondominio);
+		else
+			return null;
 	}
 
 	public Condominio cercaCondominioPerIndirizzo(String codiceCondominio){
-		return null;
+		for(Condominio condominio : this.condomini.values()) {
+			if(condominio.getIndirizzo().contains(codiceCondominio))
+				return condominio;
+		}
+			return null;
 	}
 
 	public Proprietario aggiungiProprietario(String codiceCondominio, String cognome, String nome, int interno, double millesimi, double debito) 

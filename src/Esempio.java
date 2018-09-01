@@ -15,6 +15,7 @@ public class Esempio {
 		
 		System.out.println("\nAggiunto nuovo condominio");
 		Condominio c1 = gc.aggiungiCondominio("Via Pastrengo", 30, 28000.0);
+		System.out.println(c1.toString());
           
 		System.out.println("\nDettagli condominio:");
 		System.out.println("Codice: "+c1.getCodice());
