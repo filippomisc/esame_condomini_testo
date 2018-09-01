@@ -1,0 +1,3 @@
+CASTELFIDARDO54;Riscaldamento prima rata;8000.0;20160630;true;0.0
+CASTELFIDARDO54;Rifacimento facciata;20000.0;20161130;false;5.0
+CASTELFIDARDO54;Riscaldamento seconda rata;1500.0;20161230;false;0.0
