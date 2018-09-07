@@ -56,6 +56,10 @@ public class Esempio {
 		Proprietario bg = gc.aggiungiProprietario("PASTRENGO30", "Bruni", "Giuliana", 5, 178.0, 0.0);
 		Proprietario nm = gc.aggiungiProprietario("PASTRENGO30", "Neri", "Marco", 6, 89.0, 0.0);
 		
+		//per vedere se si aggiorna il proprietario se è presente nello stesso interno
+//		Proprietario vm2 = gc.aggiungiProprietario("PASTRENGO30", "Verdi", "Martina", 2, 300.0, 100.0);
+
+		
 		gc.aggiungiProprietario("MASSENA10", "Giordano", "Diego", 1, 380.0, 3000.0);
 		gc.aggiungiProprietario("MASSENA10", "Ferrero", "Gianni", 2, 220.0, 80.0);
 		gc.aggiungiProprietario("MASSENA10", "Meneghetti", "Pina", 3, 400.0, 0.0);
@@ -66,9 +70,10 @@ public class Esempio {
 		gc.aggiungiProprietario("VITTORIO32", "Martini", "Marco", 3, 350.0, 0.0);
 		gc.aggiungiProprietario("VITTORIO32", "Superga", "Giovanni", 4, 250.0, 120.0);
 		
-		/*
-		System.out.println("\nAggiunto proprietario che fa superare il numero di millesimi");
-		gc.aggiungiProprietario("PASTRENGO30", "Ricco", "Gastone", 7, 650.0, 0.0);*/
+		System.out.println(c1.elencoProprietari().toString());
+		
+//		System.out.println("\nAggiunto proprietario che fa superare il numero di millesimi");
+//		gc.aggiungiProprietario("PASTRENGO30", "Ricco", "Gastone", 7, 650.0, 0.0);
 
 		System.out.println("\nElenco proprietari del condominio con codice "+c1.getCodice()+" "
 				+ "(in ordine alfabetico):");
