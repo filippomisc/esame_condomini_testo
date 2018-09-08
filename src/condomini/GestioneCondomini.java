@@ -1,5 +1,7 @@
 package condomini;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -198,6 +200,7 @@ public class GestioneCondomini {
 	} 
 	
 	public void calcolaDovutoProprietari(String codiceCondominio){
+		cercaCondominio(codiceCondominio).calcolaSpeseDiProprietario();
 	}
 	
 	public void saldaDebito(String codiceCondominio, String cognomeProprietario, String nomeProprietario, double versato) {
@@ -208,5 +211,50 @@ public class GestioneCondomini {
 	}
 	
 	public void leggiFile(String nomeFile) throws IOException {
-	}	
+		
+BufferedReader in = new BufferedReader(new FileReader(nomeFile));
+    	
+    
+    	
+    	
+		String linea = "";
+
+		
+		while ((linea = in.readLine()) != null) {
+			
+			try {
+				
+			    StringTokenizer st = new StringTokenizer(linea, ";");
+			    String codCondominio = st.nextToken().trim();
+			    
+
+			    
+			    	 String descrizione = st.nextToken().trim();
+			    	 double importo = Double.parseDouble(st.nextToken().trim());
+			    	 String data = st.nextToken().trim();
+			    	 Boolean pagata = Boolean.valueOf(st.nextToken().trim());
+					 double percentualeAmministratore = Double.parseDouble(st.nextToken().trim());
+					 
+					 
+					 //bisogna creare un id con i valori che leggiamo per poter cercare 
+					 
+					 aggiungiSpesa(codCondominio, descrizione, importo, data, pagata, percentualeAmministratore);
+					 
+					 
+					 
+					 
+
+			    
+			} 
+			catch (Exception e) {
+			    //System.err.println("Errore");
+				e.printStackTrace(); 
+			}
+		}
+		
+    				in.close();
+
+    }
+
+
 }

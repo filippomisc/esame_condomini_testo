@@ -111,4 +111,19 @@ public class Condominio {
 			this.saldo-=spesa.getImporto();
 			
 	}
+
+	public void calcolaSpeseDiProprietario() {
+		for(Spesa spesa : elencoSpeseCondominioPerDataCrescente()) {
+		for(Proprietario proprietario : this.elencoProprietari()) {
+			
+			if(spesa instanceof SpesaStraordinaria)
+				proprietario.setDebito(
+					proprietario.getDebito() + 
+					((SpesaStraordinaria)spesa).getImporto()*(proprietario.getMillesimi()/1000)*(1+(((SpesaStraordinaria)spesa).getPercentualeAmministratore()/100)));
+			else 
+				proprietario.setDebito(
+						proprietario.getDebito() + spesa.getImporto()*(proprietario.getMillesimi()/1000));
+			}
+		}
+	}
 }

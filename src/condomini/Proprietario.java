@@ -2,14 +2,13 @@ package condomini;
 
 public class Proprietario implements Comparable<Proprietario>{
 	
-	String cognome;
-	String nome;
-	int interno;
-	double millesimi; 
-	double debito;
+	private String cognome;
+	private String nome;
+	private int interno;
+	private double millesimi; 
+	private double debito;
 
 	
-
 	public Proprietario(String cognome, String nome, int interno, double millesimi, double debito) {
 		super();
 		this.cognome = cognome;
@@ -29,6 +28,10 @@ public class Proprietario implements Comparable<Proprietario>{
 
 	public int getInterno(){
 		return this.interno;
+	}
+
+	public void setDebito(double debito) {
+		this.debito = debito;
 	}
 
 	public double getDebito(){
