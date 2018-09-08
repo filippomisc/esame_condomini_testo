@@ -3,8 +3,11 @@ package condomini;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -204,10 +207,24 @@ public class GestioneCondomini {
 	}
 	
 	public void saldaDebito(String codiceCondominio, String cognomeProprietario, String nomeProprietario, double versato) {
+		cercaCondominio(codiceCondominio).saldaDebitoProprietario(cognomeProprietario, nomeProprietario, versato);
+
+		
 	}
 
 	public Collection<Proprietario> elencoProprietariMorosi(String codiceCondominio) {
-		return null;
+		
+		Collection<Proprietario> proprietarios = cercaCondominio(codiceCondominio).elencoProprietari();
+		
+		Collection<Proprietario> morosi = cercaCondominio(codiceCondominio).elencoMorosi();
+		
+		for(Proprietario proprietario : proprietarios) {
+			if(proprietario.getDebito()!=0.0)
+				morosi.add(proprietario);	
+		}
+		
+		
+		return morosi;
 	}
 	
 	public void leggiFile(String nomeFile) throws IOException {

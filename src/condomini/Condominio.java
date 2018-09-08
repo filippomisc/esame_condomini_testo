@@ -1,5 +1,6 @@
 package condomini;
 
+import java.nio.channels.NonWritableChannelException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +19,7 @@ public class Condominio {
 	private List<Proprietario> proprietari;
 	private List<Spesa> spese;
 	private List<Spesa> speseDaPagare;
+	private List<Proprietario> morosi;
 	
 	
 	
@@ -30,6 +32,7 @@ public class Condominio {
 		proprietari = new ArrayList<>();
 		spese = new ArrayList<>();
 		speseDaPagare = new ArrayList<>();
+		morosi = new ArrayList<>();
 		
 	}	
 
@@ -79,6 +82,11 @@ public class Condominio {
 		return this.proprietari;
 	}
 	
+	public Collection<Proprietario> elencoMorosi(){
+		Collections.sort(this.morosi);
+		return this.morosi;
+	}
+	
 	public Collection<Spesa> elencoSpeseCondominioPerDataCrescente(){
 		Collections.sort(spese);
 		return this.spese;
@@ -125,5 +133,22 @@ public class Condominio {
 						proprietario.getDebito() + spesa.getImporto()*(proprietario.getMillesimi()/1000));
 			}
 		}
+	}
+
+	public void saldaDebitoProprietario(String cognomeProprietario, String nomeProprietario, double versato) {
+
+		Proprietario proprietario = cercaProprietario(nomeProprietario, cognomeProprietario);
+		
+		proprietario.setDebito(proprietario.getDebito()-versato);
+		
+	}
+	
+	public Proprietario cercaProprietario(String nome, String cognome) {
+		Proprietario result = null;
+		for(Proprietario p : this.proprietari) {
+			if(p.getProprietario().compareTo(cognome + " "+ nome)==0)
+				result = p;
+		}
+		return result;
 	}
 }
