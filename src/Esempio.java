@@ -166,8 +166,7 @@ public class Esempio {
 		
 		System.out.print("\nVersamento della rata dovuta da parte del proprietario Rossi Mario. ");
 		gc.saldaDebito("PASTRENGO30", "Rossi", "Mario", p.getDebito());
-		System.out.println("Il nuovo saldo del condominio e': "+c1.getSaldo());
-		
+		System.out.println("Il nuovo saldo del condominio e': "+c1.getSaldo());	
 		System.out.print("\nVersamento delle rate dovute da parte di altri proprietari. ");
 		gc.saldaDebito("PASTRENGO30", "Bruni", "Giuliana", bg.getDebito());
 		gc.saldaDebito("PASTRENGO30", "Verdi", "Filippo", vf.getDebito());

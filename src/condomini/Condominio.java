@@ -77,6 +77,10 @@ public class Condominio {
 		return saldo;
 	}
 	
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+
 	public Collection<Proprietario> elencoProprietari(){
 		Collections.sort(this.proprietari);
 		return this.proprietari;
@@ -140,6 +144,7 @@ public class Condominio {
 		Proprietario proprietario = cercaProprietario(nomeProprietario, cognomeProprietario);
 		
 		proprietario.setDebito(proprietario.getDebito()-versato);
+		setSaldo(this.saldo +versato);
 		
 	}
 	
