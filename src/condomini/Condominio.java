@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.property.SimpleSetProperty;
+import javafx.scene.control.TreeTableRow;
 
 public class Condominio {
 	
@@ -126,12 +127,14 @@ public class Condominio {
 
 	public void calcolaSpeseDiProprietario() {
 		for(Spesa spesa : elencoSpeseCondominioPerDataCrescente()) {
-		for(Proprietario proprietario : this.elencoProprietari()) {
+			for(Proprietario proprietario : this.elencoProprietari()) {
 			
 			if(spesa instanceof SpesaStraordinaria)
 				proprietario.setDebito(
 					proprietario.getDebito() + 
-					((SpesaStraordinaria)spesa).getImporto()*(proprietario.getMillesimi()/1000)*(1+(((SpesaStraordinaria)spesa).getPercentualeAmministratore()/100)));
+					((SpesaStraordinaria)spesa).getImporto()*
+					(proprietario.getMillesimi()/1000)*
+					(1+(((SpesaStraordinaria)spesa).getPercentualeAmministratore()/100)));
 			else 
 				proprietario.setDebito(
 						proprietario.getDebito() + spesa.getImporto()*(proprietario.getMillesimi()/1000));
@@ -154,6 +157,10 @@ public class Condominio {
 			if(p.getProprietario().compareTo(cognome + " "+ nome)==0)
 				result = p;
 		}
+		
+		if(result==null)
+			throw new NullPointerException("proprietario non trovato");
+		
 		return result;
 	}
 }

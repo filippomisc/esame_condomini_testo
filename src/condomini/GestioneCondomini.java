@@ -13,6 +13,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.text.StyleConstants.CharacterConstants;
 
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+
 public class GestioneCondomini {
 	
 	Map<String, Condominio> condomini;
@@ -85,31 +87,19 @@ public class GestioneCondomini {
 		Proprietario proprietarioPres = null;
 		
 		Condominio condominio = cercaCondominio(codiceCondominio);
-//		
-//		//verifica che i millesimi dei condomini non superano quelli massimi
-//		double totMill = 0.0;
-//		for( Proprietario p : condominio.elencoProprietari()) {
-//			totMill += p.getMillesimi();
-//		}
-//		
-//		if(totMill+proprietario.getMillesimi()>1000.0)
-//			throw new MillesimiSuperatiException();
-//		
+
 		
 		
 //VERIFICO CHE IL PROPRIETARIO ESISTE GIA NEL CONDOMINIO. SE ESISTE AGGIORNO LE INFO (CANCELLANDO QUELLO VECCHIO E AGGIUNGENDO QUELLO NUOVO
-		//TODO SE CI SONO PROBLEMI IN QUESTO METODO VERIFICARE CHE NON SIANO DIPESI DA QUESTO
-//		if(condomini.containsKey(codiceCondominio)) {
 			for(Proprietario p : condominio.elencoProprietari()) {
 				if(p.getInterno()==proprietario.getInterno() && p.equals(proprietario)) {
 					isPresente = true;
 					proprietarioPres = p;
-//					condominio.elencoProprietari().remove(p);//TODO potrebbe dipendere da qui
 				}
 
 			}
 			
-			//verifica che i millesimi dei condomini non superano quelli massimi
+			//calolo i millesimi di tutti i proprietari di un condominio 
 			double totMill = 0.0;
 			for( Proprietario p : condominio.elencoProprietari()) {
 				if(isPresente==true)//se il proprietario è gia presente nell'appartamento bisogna sottrarre i millesimi (di quello gia presente) alla somma, altrimenti si aggiungono sempre millesimi e scatena l'eccezione
@@ -118,23 +108,16 @@ public class GestioneCondomini {
 				totMill += p.getMillesimi();
 			}
 			
-
+			//verifica che i millesimi dei condomini non superano quelli massimi
 			if(totMill+proprietario.getMillesimi()>1000.0)
 				throw new MillesimiSuperatiException();
 			
-			if(isPresente==true) {
+			if(isPresente==true) 
 				condominio.elencoProprietari().remove(proprietarioPres);
-			condominio.elencoProprietari().add(proprietario);}
-			else 			
-				condominio.elencoProprietari().add(proprietario);
+						
+			condominio.elencoProprietari().add(proprietario);
 
-
-//			condominioGiaPresente.elencoProprietari()
-//		}else {
-			
-			
-//		}
-		return proprietario;
+			return proprietario;
 	}
 	
 	public Spesa aggiungiSpesa(String codiceCondominio, String descrizione, double importo, String data, boolean pagata,
@@ -196,7 +179,7 @@ public class GestioneCondomini {
 		
 		Collection<Spesa> spesas= condominio.elencoSpeseCondominioAncoraDaPagare();
 		
-		//paghiamo le spese che si trovano tra due date
+		//paghiamo tutte le spese della lista condominio.elencoSpeseCondominioAncoraDaPagare()
 		for(Spesa sDaPagare : spesas) {
 				condominio.pagaSpesa(sDaPagare);	
 		}
@@ -229,7 +212,7 @@ public class GestioneCondomini {
 	
 	public void leggiFile(String nomeFile) throws IOException {
 		
-BufferedReader in = new BufferedReader(new FileReader(nomeFile));
+		BufferedReader in = new BufferedReader(new FileReader(nomeFile));
     	
     
     	
@@ -246,15 +229,15 @@ BufferedReader in = new BufferedReader(new FileReader(nomeFile));
 			    
 
 			    
-			    	 String descrizione = st.nextToken().trim();
-			    	 double importo = Double.parseDouble(st.nextToken().trim());
+			    	 String descrizione = st.nextToken().trim();    
+			    	 double importo = Double.parseDouble(st.nextToken().trim()); //conversione da String a double
 			    	 String data = st.nextToken().trim();
-			    	 Boolean pagata = Boolean.valueOf(st.nextToken().trim());
+			    	 boolean pagata = Boolean.valueOf(st.nextToken().trim());    //conversione da String a boolean
 					 double percentualeAmministratore = Double.parseDouble(st.nextToken().trim());
+					 //a scopo informativo------ da String a int
+//					 int numero = Integer.parseInt(st.nextToken().trim()); 
 					 
-					 
-					 //bisogna creare un id con i valori che leggiamo per poter cercare 
-					 
+					 					 
 					 aggiungiSpesa(codCondominio, descrizione, importo, data, pagata, percentualeAmministratore);
 					 
 					 
